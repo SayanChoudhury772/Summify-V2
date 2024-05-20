@@ -1,12 +1,15 @@
 # Importing Module
 from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 import httpx
 import tracemalloc
 import re
+
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Youtube API
 youtube_api_key = "AIzaSyBf7Oy_B9JBS1r_wD0gzIRLsrjJ3yBDB0M"
