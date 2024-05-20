@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>summify</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap");
+
+        body {
+            font-family: "Bricolage Grotesque", sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* Custom Range Styles */
+        .range {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        .range input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 5px;
+            color: #ba3950;
+            outline: none;
+            margin-top: 0px;
+            /* Adjusted margin */
+        }
+
+        .range input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: #f97316;
+        }
+
+        .range span {
+            position: absolute;
+            margin-left: 14px;
+            width: 50px;
+            height: 30px;
+            background-color: #222;
+            color: #fff;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .range span:before {
+            content: '';
+            position: absolute;
+            border-right: 9px solid transparent;
+            border-left: 9px solid transparent;
+            border-bottom: 12px solid #222;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        /* Change the background color of the range to bg-orange-600 */
+        /* .range input[type="range"] {
+            background-color: #f97316;
+        } */
+    </style>
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <main class="max-w-3xl mx-auto px-4 md:px-6 lg:px-8">
+        <div class="py-8 md:py-10 lg:py-14 space-y-7">
+            <div class="space-y-4 text-center"> <!-- Centered text -->
+                <h1 class="text-3xl md:text-3xl lg:text-5xl font-extrabold">
+                    Summify - summarize your
+                    <span class="text-orange-600">YouTube</span> video in one click
+                </h1>
+                <p class="text-sm text-zinc-400">
+                    Elevate your YouTube journey with our Smart Summerizer app. Trim the
+                    noise, savor the essence! Condense videos, save time, and dive into
+                    the highlights.
+                </p>
+            </div>
+            <div class="w-full flex flex-col items-center"> <!-- Adjusted vertical gap -->
+                <form action="/summarize" method="post" class="w-full flex items-center flex-col gap-3">
+                    <div class="flex items-center gap-3 w-full md:w-[80%]">
+
+                    <input type="text"
+                        class="border-none py-2.5 px-4 bg-zinc-800 rounded-md outline-none placeholder:text-zinc-600 flex-1"
+                        placeholder="Enter your video id" id="video_url" name="video_url" required/>
+
+                            <!-- <label for="lan-select" class="block text-sm font-medium text-gray-700">Choose target language:</label> -->
+                        <select id="lan-select" name="target_language" class="mt-1 block py-2 px-3 border bg-zinc-800 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="bn">Bengali</option>
+                        </select>
+                    </div>
+                        
+
+                    <!-- <p class="text-sm text-zinc-400">
+                        Choose the size of your summary
+                    </p> -->
+                    <!-- Custom Range Input for the percentage -->
+                    <!-- <div class="range">
+                        <input type="range" min="10" max="90" value="50" step="10" class="slider"
+                            id="summary_percentage" name="summary_percentage" required>
+                        <span>50%</span>
+                    </div> -->
+                    <button type="submit"
+                        class="py-2.5 px-3 bg-orange-600 rounded-md hover:bg-orange-700 transition-all font-medium w-full md:w-[80%]">
+                        Generate
+                    </button>
+                </form>
+            </div>
+            {% if title %}
+            <div class="border-2 p-3 border-zinc-700  bg-zinc-800 rounded-md">
+                <p>{{ title }}</p>
+            </div>
+            {% endif %}
+            {% if summary %}
+            <div class="p-3 border-2 border-zinc-700  bg-zinc-800 rounded-md relative">
+                <p id="textToCopy">{{ summary }}</p>
+                <button class="absolute bottom-1 rounded-lg right-2 text-xs px-1.5 py-1 bg-zinc-950 border border-zinc-700" onclick="copyText()">copy text</button>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    <script>
+function copyText() {
+      // Get the text content of the <p> tag
+      var textToCopy = document.getElementById("textToCopy").innerText;
+
+      // Use the Clipboard API to copy the text
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          alert("SUCCESS: Copied to clipboard");
+        })
+        .catch(err => {
+          console.error('ERROR: Unable to copy text: ', err);
+        });
+    }
+    </script>
+</body>
+
+</html>

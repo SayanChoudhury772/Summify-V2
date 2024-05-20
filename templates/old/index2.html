@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>summify</title>
+</head>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap");
+
+    body {
+        font-family: "Bricolage Grotesque", sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+</style>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <main class="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+        <!--  <nav>
+        <h1>Summify</h1>
+ 
+      </nav>
+ -->
+        <div class="py-8 md:py-10 lg:py-14 space-y-7">
+            <!-- app details -->
+            <div class="space-y-4">
+                <h1 class="text-center text-3xl md:text-3xl lg:text-5xl font-extrabold">
+                    Summify - summarize your
+                    <span class="text-orange-600">YouTube</span> video in one click
+                </h1>
+                <p class="text-sm text-center text-zinc-400">
+                    Elevate your YouTube journey with our Smart Summerizer app. Trim the
+                    noise, savor the essence! Condense videos, save time, and dive into
+                    the highlights.
+                </p>
+            </div>
+            <!-- form container -->
+            <div class="w-full">
+                <form action="/summarize" method="post" class="flex items-center flex-col gap-3">
+                    <input type="text"
+                        class="w-full md:w-[80%] border-none py-2.5 px-4 bg-zinc-900 rounded-md outline-none placeholder:text-zinc-600"
+                        placeholder="Enter your video id" id="video_url" name="video_url" required>
+                    <!-- Custom Range Input for the percentage -->
+                    <div class="range">
+                        <input type="range" min="10" max="90" value="50" step="10" class="slider"
+                            id="summary_percentage" name="summary_percentage" style="width: 80%;" required>
+                        <span>50%</span>
+                    </div>
+                    <button type="submit"
+                        class="py-2.5 px-3 bg-orange-600 rounded-md hover:bg-orange-700 transition-all font-medium w-full md:w-[20%]">
+                        Generate
+                    </button>
+                </form>
+            </div>
+
+            <!-- video info -->
+            {% if video_info %}
+            <div class="border-2 border-zinc-800 p-3 bg-zinc-900 rounded-md">
+                <p>Title: {{ video_info.title }}</p>
+            </div>
+            {% endif %}
+
+            <!-- summarized  -->
+            {% if summary %}
+            <div class="border-2 border-zinc-800 p-3 bg-zinc-900 rounded-md">
+                <p>{{ summary }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+
+</html>
